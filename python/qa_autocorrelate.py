@@ -23,11 +23,9 @@
 
 from gnuradio import gr, gr_unittest
 from gnuradio import blocks
-import itertools
-import oct2py
-import numpy
-import os
+import numpy as np
 import doa_swig as doa
+from doa_testbench.autocorrelate import autocorrelate_test_input_gen
 
 class qa_autocorrelate (gr_unittest.TestCase):
 
@@ -47,13 +45,9 @@ class qa_autocorrelate (gr_unittest.TestCase):
 		# apply Forward-Backward Averaging?
 		FB = False
 
-		# Generate auto-correlation vector from octave
-		oc = oct2py.Oct2Py()
-		oc.addpath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'examples'))		
-		print oc
-		[expected_S_x, data] = oc.doa_testbench_create('autocorrelate_test_input_gen', len_ss, overlap_size, num_inputs, FB)
-		expected_S_x = tuple(expected_S_x)
-		expected_S_x = list(itertools.chain.from_iterable(expected_S_x))
+        # Generate auto-correlation vector
+        expected_S_x, data = autocorrelate_test_input_gen(len_ss, overlap_size, num_inputs, FB)
+        expected_S_x = np.ndarray.flatten(expected_S_x)
 		# num of snapshots
 		n_ss = len(expected_S_x)/(num_inputs*num_inputs)
 
@@ -77,12 +71,8 @@ class qa_autocorrelate (gr_unittest.TestCase):
 		observed_S_x = self.vec_sink.data()
 
 		# check data
-		expected_S_x_equals_observed_S_x = True
-		for ii in range(n_ss*num_inputs*num_inputs):            
-		    if abs(expected_S_x[ii]-observed_S_x[ii]) > 1.0:
-				expected_S_x_equals_observed_S_x = False
-
-		    self.assertTrue(expected_S_x_equals_observed_S_x)
+        if np.any(np.abs(expected_S_x - observed_S_x) > 1.0):
+            self.fail("Expected S_x is not equal to observed S_x")
 
     def test_002_t (self):
 		# length of each snapshot
@@ -94,12 +84,9 @@ class qa_autocorrelate (gr_unittest.TestCase):
 		# apply Forward-Backward Averaging?
 		FB = True
 
-		# Generate auto-correlation vector from octave
-		oc = oct2py.Oct2Py()
-		oc.addpath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'examples'))		
-		[expected_S_x, data] = oc.doa_testbench_create('autocorrelate_test_input_gen', len_ss, overlap_size, num_inputs, FB)
-		expected_S_x = tuple(expected_S_x)
-		expected_S_x = list(itertools.chain.from_iterable(expected_S_x))
+        # Generate auto-correlation vector
+        expected_S_x, data = autocorrelate_test_input_gen(len_ss, overlap_size, num_inputs, FB)
+        expected_S_x = np.ndarray.flatten(expected_S_x)
 		# num of snapshots
 		n_ss = len(expected_S_x)/(num_inputs*num_inputs)
 
@@ -123,12 +110,8 @@ class qa_autocorrelate (gr_unittest.TestCase):
 		observed_S_x = self.vec_sink.data()
 
 		# check data
-		expected_S_x_equals_observed_S_x = True
-		for ii in range(n_ss*num_inputs*num_inputs):            
-		    if abs(expected_S_x[ii]-observed_S_x[ii]) > 1.0:
-				expected_S_x_equals_observed_S_x = False
-
-		    self.assertTrue(expected_S_x_equals_observed_S_x)
+        if np.any(np.abs(expected_S_x - observed_S_x) > 1.0):
+            self.fail("Expected S_x is not equal to observed S_x")
 
     def test_003_t (self):
 		# length of each snapshot
@@ -140,12 +123,9 @@ class qa_autocorrelate (gr_unittest.TestCase):
 		# apply Forward-Backward Averaging?
 		FB = True
 
-		# Generate auto-correlation vector from octave
-		oc = oct2py.Oct2Py()
-		oc.addpath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'examples'))		
-		[expected_S_x, data] = oc.doa_testbench_create('autocorrelate_test_input_gen', len_ss, overlap_size, num_inputs, FB)
-		expected_S_x = tuple(expected_S_x)
-		expected_S_x = list(itertools.chain.from_iterable(expected_S_x))
+        # Generate auto-correlation vector
+        expected_S_x, data = autocorrelate_test_input_gen(len_ss, overlap_size, num_inputs, FB)
+        expected_S_x = np.ndarray.flatten(expected_S_x)
 		# num of snapshots
 		n_ss = len(expected_S_x)/(num_inputs*num_inputs)
 
@@ -169,12 +149,8 @@ class qa_autocorrelate (gr_unittest.TestCase):
 		observed_S_x = self.vec_sink.data()
 
 		# check data
-		expected_S_x_equals_observed_S_x = True
-		for ii in range(n_ss*num_inputs*num_inputs):            
-		    if abs(expected_S_x[ii]-observed_S_x[ii]) > 1.0:
-				expected_S_x_equals_observed_S_x = False
-
-		    self.assertTrue(expected_S_x_equals_observed_S_x)
+        if np.any(np.abs(expected_S_x - observed_S_x) > 1.0):
+            self.fail("Expected S_x is not equal to observed S_x")
 
 if __name__ == '__main__':
     gr_unittest.run(qa_autocorrelate, "qa_autocorrelate.xml")
