@@ -24,9 +24,9 @@
 from gnuradio import gr, gr_unittest
 from gnuradio import blocks
 import doa_swig as doa
-import scipy
-import oct2py
-import os
+import numpy
+from doa_testbench_create.music_test_input_gen import music_test_input_gen
+
 
 class qa_MUSIC_lin_array (gr_unittest.TestCase):
 
@@ -61,11 +61,11 @@ class qa_MUSIC_lin_array (gr_unittest.TestCase):
 		# simulate perturbation?
 		PERTURB = False
 
-		# Generate auto-correlation vector from octave
-		oc = oct2py.Oct2Py()
-		oc.addpath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'examples'))
-		music_linear_input = oc.doa_testbench_create('music_test_input_gen', len_ss, overlap_size, num_arr_ele, FB, 'linear', num_arr_ele, norm_spacing, PERTURB, expected_aoa)
-		music_linear_input = music_linear_input.flatten().tolist()
+		# Generate auto-correlation vector
+		music_linear_input, _, _ = music_test_input_gen(
+			len_ss, overlap_size, num_arr_ele, norm_spacing, PERTURB, [expected_aoa]
+		)
+		music_linear_input = numpy.ndarray.flatten(music_linear_input)
 
 		##################################################
 		# Blocks
@@ -91,13 +91,8 @@ class qa_MUSIC_lin_array (gr_unittest.TestCase):
 		aoa_output_23 = self.vec_sink.data()
 
 		# check
-		measured_aoa_is_23 = True
-		for i in range(len(aoa_output_23)):            
-			if (abs(aoa_output_23[i] - expected_aoa) > 2.0):
-				measured_aoa_is_23 = False
-
-		self.assertTrue(measured_aoa_is_23)
-
+        if numpy.any(numpy.abs(numpy.array(aoa_output_23) - expected_aoa) > 2.0):
+            self.fail("Measured AoA is not equal to " + str(expected_aoa))
 	
     def test_002_MUSIC_aoa121(self):
 		# length of each snapshot
@@ -118,10 +113,10 @@ class qa_MUSIC_lin_array (gr_unittest.TestCase):
 		PERTURB = False
 
 		# Generate auto-correlation vector from octave
-		oc = oct2py.Oct2Py()
-		oc.addpath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'examples'))
-		music_linear_input = oc.doa_testbench_create('music_test_input_gen', len_ss, overlap_size, num_arr_ele, FB, 'linear', num_arr_ele, norm_spacing, PERTURB, expected_aoa)
-		music_linear_input = music_linear_input.flatten().tolist()
+		music_linear_input, _, _ = music_test_input_gen(
+			len_ss, overlap_size, num_arr_ele, norm_spacing, PERTURB, [expected_aoa]
+		)
+		music_linear_input = numpy.ndarray.flatten(music_linear_input)
 
 		##################################################
 		# Blocks
@@ -147,12 +142,8 @@ class qa_MUSIC_lin_array (gr_unittest.TestCase):
 		aoa_output_121 = self.vec_sink.data()
 
 		# check
-		measured_aoa_is_121 = True
-		for i in range(len(aoa_output_121)):
-			if (abs(aoa_output_121[i] - expected_aoa) > 2.0):
-				measured_aoa_is_121 = False
-
-		self.assertTrue(measured_aoa_is_121) 
+        if numpy.any(numpy.abs(numpy.array(aoa_output_121) - expected_aoa) > 2.0):
+            self.fail("Measured AoA is not equal to " + str(expected_aoa))
 	
 if __name__ == '__main__':
 	gr_unittest.run(qa_MUSIC_lin_array, "qa_MUSIC_lin_array.xml")
