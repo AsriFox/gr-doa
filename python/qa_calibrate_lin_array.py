@@ -24,10 +24,9 @@
 from gnuradio import gr, gr_unittest
 from gnuradio import blocks
 import doa_swig as doa
-import itertools
-import oct2py
 import numpy
-import os
+from doa_testbench_create.music_test_input_gen import music_test_input_gen
+
 
 class qa_calibrate_lin_array (gr_unittest.TestCase):
 
@@ -53,12 +52,12 @@ class qa_calibrate_lin_array (gr_unittest.TestCase):
 		# simulate perturbation?
 		PERTURB = True
 
-		# Generate auto-correlation vector from octave
-		oc = oct2py.Oct2Py()
-		oc.addpath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'examples'))
-		S_x, S_x_uncalibrated, ant_pert_vec = oc.doa_testbench_create('music_test_input_gen', len_ss, overlap_size, num_ant_ele, FB, 'linear', num_ant_ele, norm_spacing, PERTURB, pilot_doa)
-		S_x_uncalibrated = S_x_uncalibrated.flatten().tolist()
-		ant_pert_vec = list(itertools.chain.from_iterable(ant_pert_vec))
+		# Generate auto-correlation vector
+		S_x, S_x_uncalibrated, ant_pert_vec = music_test_input_gen(
+			len_ss, overlap_size, num_ant_ele, norm_spacing, PERTURB, [pilot_doa]
+		)
+		S_x_uncalibrated = numpy.ndarray.flatten(S_x_uncalibrated)
+		ant_pert_vec = numpy.ndarray.flatten(ant_pert_vec)
 
 		##################################################
 		# Blocks
@@ -108,12 +107,12 @@ class qa_calibrate_lin_array (gr_unittest.TestCase):
 		# simulate perturbation?
 		PERTURB = True
 
-		# Generate auto-correlation vector from octave
-		oc = oct2py.Oct2Py()
-		oc.addpath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'examples'))
-		S_x, S_x_uncalibrated, ant_pert_vec = oc.doa_testbench_create('music_test_input_gen', len_ss, overlap_size, num_ant_ele, FB, 'linear', num_ant_ele, norm_spacing, PERTURB, pilot_doa)
-		S_x_uncalibrated = S_x_uncalibrated.flatten().tolist()
-		ant_pert_vec = list(itertools.chain.from_iterable(ant_pert_vec))
+		# Generate auto-correlation vector
+		S_x, S_x_uncalibrated, ant_pert_vec = music_test_input_gen(
+			len_ss, overlap_size, num_ant_ele, norm_spacing, PERTURB, [pilot_doa]
+		)
+		S_x_uncalibrated = numpy.ndarray.flatten(S_x_uncalibrated)
+		ant_pert_vec = numpy.ndarray.flatten(ant_pert_vec)
 
 		##################################################
 		# Blocks
@@ -163,12 +162,12 @@ class qa_calibrate_lin_array (gr_unittest.TestCase):
 		# simulate perturbation?
 		PERTURB = True
 
-		# Generate auto-correlation vector from octave
-		oc = oct2py.Oct2Py()
-		oc.addpath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'examples'))
-		S_x, S_x_uncalibrated, ant_pert_vec = oc.doa_testbench_create('music_test_input_gen', len_ss, overlap_size, num_ant_ele, FB, 'linear', num_ant_ele, norm_spacing, PERTURB, pilot_doa)
-		S_x_uncalibrated = S_x_uncalibrated.flatten().tolist()
-		ant_pert_vec = list(itertools.chain.from_iterable(ant_pert_vec))
+		# Generate auto-correlation vector
+		S_x, S_x_uncalibrated, ant_pert_vec = music_test_input_gen(
+			len_ss, overlap_size, num_ant_ele, norm_spacing, PERTURB, [pilot_doa]
+		)
+		S_x_uncalibrated = numpy.ndarray.flatten(S_x_uncalibrated)
+		ant_pert_vec = numpy.ndarray.flatten(ant_pert_vec)
 
 		##################################################
 		# Blocks
