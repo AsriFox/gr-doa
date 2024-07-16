@@ -27,7 +27,7 @@ from gnuradio.filter import firdes
 import pmt
 import numpy
 import sys
-import parser
+
 
 def convert_phase_strings_to_floats(num):
     try:

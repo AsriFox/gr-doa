@@ -22,12 +22,12 @@
 # Boston, MA 02110-1301, USA.
 #
 import numpy
-from gnuradio import gr;
+from gnuradio import gr
 import time
 import random
 
-from PyQt4 import Qt, QtCore, QtGui
-import PyQt4.Qwt5 as Qwt
+from PyQt5 import Qt, QtCore, QtGui, Qwt
+
 
 class compass(gr.sync_block, Qwt.QwtPlot):
     __pyqtSignals__ = ("updatePlot(int)")

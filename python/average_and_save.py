@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright 2016 
+# Copyright 2016
 # Travis F. Collins <travisfcollins@gmail.com>.
 # Srikanth Pagadarai <srikanth.pagadarai@gmail.com>
 #
@@ -24,6 +24,7 @@
 import numpy
 from gnuradio import gr
 import sys
+
 
 def gen_sig_io(num_elements,sig_type):
     # Dynamically create types for signature

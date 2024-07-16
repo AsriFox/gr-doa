@@ -22,14 +22,15 @@
 """Misc utilities used at build time
 """
 
-import re, os, os.path
+import re
+import os
 from build_utils_codes import *
 
 
 # set srcdir to the directory that contains Makefile.am
 try:
     srcdir = os.environ['srcdir']
-except KeyError, e:
+except KeyError:
     srcdir = "."
 srcdir = srcdir + '/'
 
@@ -39,7 +40,7 @@ try:
         do_makefile = False
     else:
         do_makefile = True
-except KeyError, e:
+except KeyError:
     do_makefile = False
 
 # set do_sources to either true or false dependeing on the environment
@@ -48,7 +49,7 @@ try:
         do_sources = False
     else:
         do_sources = True
-except KeyError, e:
+except KeyError:
     do_sources = True
 
 name_dict = {}
@@ -127,7 +128,7 @@ def extract_extension (template_name):
     # we return everything between the penultimate . and .t
     mo = re.search (r'\.([a-z]+)\.t$', template_name)
     if not mo:
-        raise ValueError, "Incorrectly formed template_name '%s'" % (template_name,)
+        raise ValueError("Incorrectly formed template_name '%s'" % (template_name,))
     return mo.group (1)
 
 def open_src (name, mode):

@@ -25,10 +25,10 @@ description here (python/__init__.py).
 
 # import pybind11 generated symbols into the doa namespace
 try:
-	# this might fail if the module is python-only
-	from .doa_python import *
+    # this might fail if the module is python-only
+    from .doa_python import *
 except ModuleNotFoundError:
-	pass
+    pass
 
 # import any pure python here
 from average_and_save import average_and_save
