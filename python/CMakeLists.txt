@@ -47,6 +47,14 @@ include(GrTest)
 
 set(GR_TEST_TARGET_DEPS gnuradio-doa)
 set(GR_TEST_PYTHON_DIRS ${CMAKE_BINARY_DIR}/swig)
+
+# Create a package directory that tests can import. It includes everything
+# from `python/`.
+add_custom_target(
+  copy_module_for_tests ALL
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}
+          ${PROJECT_BINARY_DIR}/test_modules/gnuradio/doa/
+)
 GR_ADD_TEST(qa_autocorrelate ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_autocorrelate.py)
 GR_ADD_TEST(qa_MUSIC_lin_array ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_MUSIC_lin_array.py)
 GR_ADD_TEST(qa_rootMUSIC_linear_array ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_rootMUSIC_linear_array.py)

@@ -42,7 +42,7 @@ namespace gr {
     class DOA_API antenna_correction : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<antenna_correction> sptr;
+      typedef std::shared_ptr<antenna_correction> sptr;
 
       /*!
        * \brief Make a block to correct a correlation matrix for non-uniform antenna gain and phase. 

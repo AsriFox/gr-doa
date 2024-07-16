@@ -43,7 +43,7 @@ namespace gr {
     class DOA_API MUSIC_lin_array : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<MUSIC_lin_array> sptr;
+      typedef std::shared_ptr<MUSIC_lin_array> sptr;
 
       /*!
        * \brief Make a block to estimate DoAs using MUSIC algorithm for linear arrays.

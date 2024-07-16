@@ -43,7 +43,7 @@ namespace gr {
     class DOA_API find_local_max : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<find_local_max> sptr;
+      typedef std::shared_ptr<find_local_max> sptr;
 
       /*!
        * \brief Make a block to find the local maxima and their locations 

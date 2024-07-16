@@ -43,7 +43,7 @@ namespace gr {
     class DOA_API autocorrelate : virtual public gr::block
     {
      public:
-      typedef boost::shared_ptr<autocorrelate> sptr;
+      typedef std::shared_ptr<autocorrelate> sptr;
 
       /*!
        * \brief Make an autocorrelate block.

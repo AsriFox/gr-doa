@@ -1,4 +1,5 @@
 INCLUDE(FindPkgConfig)
+
 PKG_CHECK_MODULES(PC_DOA doa)
 
 FIND_PATH(
@@ -23,6 +24,8 @@ FIND_LIBRARY(
           /usr/lib
           /usr/lib64
 )
+
+include("${CMAKE_CURRENT_LIST_DIR}/gnuradio-doaTarget.cmake")
 
 INCLUDE(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(DOA DEFAULT_MSG DOA_LIBRARIES DOA_INCLUDE_DIRS)

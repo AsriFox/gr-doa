@@ -42,7 +42,7 @@ namespace gr {
     class DOA_API calibrate_lin_array : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<calibrate_lin_array> sptr;
+      typedef std::shared_ptr<calibrate_lin_array> sptr;
 
       /*!
        * \brief Make a block to calibrate linear arrays.

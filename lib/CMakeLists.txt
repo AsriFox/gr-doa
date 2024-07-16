@@ -22,8 +22,6 @@
 ########################################################################
 include(GrPlatform) #define LIB_SUFFIX
 
-include_directories(${Boost_INCLUDE_DIR})
-link_directories(${Boost_LIBRARY_DIRS})
 list(APPEND doa_sources
     autocorrelate_impl.cc
     MUSIC_lin_array_impl.cc
@@ -35,12 +33,16 @@ list(APPEND doa_sources
 
 set(doa_sources "${doa_sources}" PARENT_SCOPE)
 if(NOT doa_sources)
-	MESSAGE(STATUS "No C++ sources... skipping lib/")
-	return()
+    MESSAGE(STATUS "No C++ sources... skipping lib/")
+    return()
 endif(NOT doa_sources)
 
 add_library(gnuradio-doa SHARED ${doa_sources})
-target_link_libraries(gnuradio-doa ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES} ${ARMADILLO_LIBRARIES})
+target_link_libraries(gnuradio-doa gnuradio::gnuradio-runtime ${ARMADILLO_LIBRARIES})
+target_include_directories(gnuradio-doa
+    PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+    PUBLIC $<INSTALL_INTERFACE:include>
+)
 set_target_properties(gnuradio-doa PROPERTIES DEFINE_SYMBOL "gnuradio_doa_EXPORTS")
 
 if(APPLE)
@@ -52,8 +54,11 @@ endif(APPLE)
 ########################################################################
 # Install built library files
 ########################################################################
-install(TARGETS gnuradio-doa
-    LIBRARY DESTINATION lib${LIB_SUFFIX} # .so/.dylib file
-    ARCHIVE DESTINATION lib${LIB_SUFFIX} # .lib file
-    RUNTIME DESTINATION bin              # .dll file
-)
+include(GrMiscUtils)
+GR_LIBRARY_FOO(gnuradio-doa)
+
+########################################################################
+# Print summary
+########################################################################
+message(STATUS "Using install prefix: ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "Building for version: ${VERSION} / ${LIBVER}")
