@@ -25,6 +25,8 @@ if(NOT PYTHONINTERP_FOUND)
     return()
 endif()
 
+add_subdirectory(bindings)
+
 ########################################################################
 # Install python sources
 ########################################################################
@@ -46,7 +48,6 @@ GR_PYTHON_INSTALL(
 include(GrTest)
 
 set(GR_TEST_TARGET_DEPS gnuradio-doa)
-set(GR_TEST_PYTHON_DIRS ${CMAKE_BINARY_DIR}/swig)
 
 # Create a package directory that tests can import. It includes everything
 # from `python/`.

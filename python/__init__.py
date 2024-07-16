@@ -23,11 +23,11 @@ This is the GNU Radio DOA module. Place your Python package
 description here (python/__init__.py).
 '''
 
-# import swig generated symbols into the doa namespace
+# import pybind11 generated symbols into the doa namespace
 try:
 	# this might fail if the module is python-only
-	from doa_swig import *
-except ImportError:
+	from .doa_python import *
+except ModuleNotFoundError:
 	pass
 
 # import any pure python here

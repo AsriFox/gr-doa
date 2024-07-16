@@ -23,11 +23,21 @@
 
 from gnuradio import gr, gr_unittest
 from gnuradio import blocks
-import doa_swig as doa
 import scipy
 import oct2py
 from subprocess import Popen, PIPE
 import os
+
+try:
+    from gnuradio import doa
+except ImportError:
+    import os
+    import sys
+
+    dirname, filename = os.path.split(os.path.abspath(__file__))
+    sys.path.append(os.path.join(dirname, "bindings"))
+    from gnuradio import doa
+
 
 class qa_rootMUSIC (gr_unittest.TestCase):
 

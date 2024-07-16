@@ -24,7 +24,7 @@
 import numpy
 from gnuradio import gr
 import sys
-import doa_swig as doa
+
 
 def gen_sig_io(num_elements,sig_type):
     # Dynamically create types for signature
