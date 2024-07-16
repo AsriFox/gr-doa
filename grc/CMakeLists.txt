@@ -17,18 +17,18 @@
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
 install(FILES
-    phase_correct_hier.xml
-    twinrx_usrp_source.xml
-    doa_autocorrelate.xml
-    doa_MUSIC_lin_array.xml
-    doa_average_and_save.xml
-    doa_rootMUSIC_linear_array.xml
-    doa_qt_compass.xml
-    doa_antenna_correction.xml
-    doa_save_antenna_calib.xml
-    doa_twinrx_phase_offset_est.xml
-    doa_findmax_and_save.xml
-    doa_find_local_max.xml
-    doa_calibrate_lin_array.xml
+    phase_correct_hier.block.yml
+    twinrx_usrp_source.block.yml
+    doa_autocorrelate.block.yml
+    doa_MUSIC_lin_array.block.yml
+    doa_average_and_save.block.yml
+    doa_rootMUSIC_linear_array.block.yml
+    doa_qt_compass.block.yml
+    doa_antenna_correction.block.yml
+    doa_save_antenna_calib.block.yml
+    doa_twinrx_phase_offset_est.block.yml
+    doa_findmax_and_save.block.yml
+    doa_find_local_max.block.yml
+    doa_calibrate_lin_array.block.yml
     DESTINATION share/gnuradio/grc/blocks
 )
